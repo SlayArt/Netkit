@@ -1,0 +1,11 @@
+/bin/
+/obj/
+/*.o
+/*.exe
+*.core
+.vscode/
+.idea/
+*.swp
+.DS_Store
+*.log
+coverage/
