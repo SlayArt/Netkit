@@ -8,6 +8,8 @@
 #define LINE_BYTES 16
 
 int nk_hexdump(const char *filename) {
+    printf("Hexdump in use... \n");
+
     printf("opening file %s \n", filename);
 
     FILE *inputFile = fopen(filename, "rb");
