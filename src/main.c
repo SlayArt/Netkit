@@ -12,6 +12,8 @@ int main(int argc, char *argv[]) {
         return 1;
 
     } else if (argc == 1) {
+        const char *command[] = {"exit", "help", "hexdump", NULL};
+
 	    printf("NetKit ready to use in interactive mode... \n\n");
         printf("----- \n\n");
         
@@ -31,15 +33,46 @@ int main(int argc, char *argv[]) {
 
             char *cmd = strtok(input, " \t");
             char *arg = strtok(NULL, " \t");
+            
+            
+            int found_command = 0;
+            int i = 0;
+            while (command[i] != NULL && found_command == 0) {
+                if (strcmp(cmd, command[i]) == 0) {
+                    found_command = 1;
+                }
+                i++;
+            }
 
-            if (strcmp(cmd, "hexdump") == 0 && arg == NULL){
-                printf("2 arguments are required for hexdump...\n");
-                printf("Here is the right command : hexdump {FileName}\n");
-            } else {
-                int result = nk_hexdump(arg);
+            if (found_command == 0) {
+                printf("%s not a NetKit command...\n", cmd);
+                printf("type 'help' to now all avalaible command!\n");
 
-                if (result != 0) {
-                    printf("[ERROR] can't use hexdump with %s \n", arg);
+            } else if (strcmp(cmd, "exit") == 0) {
+                printf("Netkit interactive mode stopped...\n");
+
+                return 1;
+              
+            } else if (strcmp(cmd, "help") == 0) {
+                printf("Here is all NetKit command : \n\n");
+                
+                int i = 0;
+                while (command[i] != NULL) {
+                    printf("%s\n", command[i]);
+                    i++;
+                }
+
+            } else if (strcmp(cmd, "hexdump") == 0){
+                
+                if (arg == NULL) {
+                    printf("2 arguments are required for hexdump...\n");
+                    printf("Here is the right command : hexdump {FileName}\n");
+                } else {
+                    int result = nk_hexdump(arg);
+                    
+                    if (result != 0) {
+                        printf("[ERROR] can't use hexdump with %s \n", arg);
+                    }
                 }
             }
         }
