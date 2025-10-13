@@ -33,7 +33,10 @@ int main(int argc, char *argv[]) {
 
             char *cmd = strtok(input, " \t");
             char *arg = strtok(NULL, " \t");
-            
+
+            if (cmd == NULL) {
+                continue;
+            }
             
             int found_command = 0;
             int i = 0;
