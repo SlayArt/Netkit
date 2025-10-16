@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "hexdump.h"
+#include "nkscan.h"
 
 int main(int argc, char *argv[]) {
     
@@ -12,7 +13,7 @@ int main(int argc, char *argv[]) {
         return 1;
 
     } else if (argc == 1) {
-        const char *command[] = {"exit", "help", "hexdump", NULL};
+        const char *command[] = {"exit", "help", "hexdump", "nkscan", NULL};
 
 	    printf("NetKit ready to use in interactive mode... \n\n");
         printf("----- \n\n");
@@ -89,6 +90,12 @@ int main(int argc, char *argv[]) {
         
             if (result != 0) {
                 printf("[ERROR] can't use hexdump with %s \n", argv[2]);
+            }
+        } else if (argc == 3 && strcmp(argv[1], "nkscan") == 0) {
+            int result = nk_scan(argv[2]);
+
+            if (result != 0) {
+                printf("[ERROR] can't use nkscan with %s \n", argv[2]);
             }
         }
     }
